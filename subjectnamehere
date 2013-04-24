@@ -16,6 +16,8 @@ use Lingua::EN::Inflect qw( A AN );
 
 use List::Util 'shuffle';
 
+#### Hardcoded Definitions #####
+# TODO: Move this off into its own file, preferably in a human-readable format.
 
 my @buzzword_gameplay = (
     'physics', 'time', 'paint', 'gravity', 'colors', 'emotions',
@@ -41,30 +43,26 @@ my @buzzword_tool = (
 my @buzzword_macguffin = (@buzzword_tool, (
     'true love', 'a nuclear bomb', 'the secret to eternal life'
 ));
+
     
+my @buzzword_adj = shuffle( qw(
+    roguelike procedural retro social interactive narrative unique
+    evocative dynamic story-driven atmospheric old-school hardcore
+    casual immersive physics-based skill-adaptive touchscreen-ready
+    mind-bending open-ended co-op twitch ) );
+
+# TODO: Actually write this.
+
 sub gen_game_name {
     return "SUBJECT_GAME_HERE";
 }
 
-# TODO: Replace the various primitives that draw from word lists with closures
-# that iterate over a shuffled word list. That way, we can just call for a
-# new adjective from anywhere in the code without getting repeat adjectives.
-
-sub make_adjectivator {
-    # Yeah, yeah, special cases, whatever
-    my $i = 0;
-
-    my @buzzword_adj = shuffle( qw(
-        roguelike procedural retro social interactive narrative unique
-        evocative dynamic story-driven atmospheric old-school hardcore
-        casual immersive physics-based skill-adaptive touchscreen-ready
-        mind-bending open-ended co-op twitch ) );
-
-    return sub {
-        return $buzzword_adj[$i++] .
-            ((rand > 0.75)?'':('/' . $buzzword_adj[$i++]));
-    };
+sub gen_character_name {
+    return "SUBJECT_CHARACTER_HERE";
 }
+
+# Takes a list of items, and returns a reference to an anonymous stateful 
+# function that iterates returns those items one at a time in a random order.
 
 sub make_iterator {
     my $i = 0;
@@ -75,12 +73,34 @@ sub make_iterator {
     };
 }
 
+# Same as make_iterator, but returns foo/bar 25% of the time.
 
-my $gen_adjective = make_adjectivator;
+sub make_adjectivator {
+    # Yeah, yeah, special cases, whatever
+    my $i = 0;
+    my @buzzwords = @_;
+
+    return sub {
+        return $buzzwords[$i++] .
+            ((rand > 0.75)?'':('/' . $buzzwords[$i++]));
+    };
+}
+
+# TODO: This block is awfully repetitious. Figure out a way to do this
+# programatically/metaprogramatically, especially because it'll only get
+# worse.
+
+my $gen_adjective = make_adjectivator(@buzzword_adj);
 my $gen_category = make_iterator(@buzzword_category);
 my $gen_gameplay = make_iterator(@buzzword_gameplay);
 my $gen_character_adj = make_iterator(@buzzword_character_adj);
 my $gen_character_species = make_iterator(@buzzword_character);
+
+#### Composite Generators ####
+# Those functions take the primitives we defined before and mash them together
+# into sentences and sentence fragments. A common pattern here is to pick random
+# functions out of a list of anonymous functions to choose what kind of
+# phrase to insert.
 
 sub gen_game_genre {
     return 
@@ -90,31 +110,32 @@ sub gen_game_genre {
 
 sub gen_with {
 
+    # Variations on a theme.
+
     my @with_subs = (
         sub {
-            return ' with ' . $gen_adjective->() . ' ' . $gen_category->() . ' elements.';
+            return ' with ' . $gen_adjective->() . ' ' . $gen_category->()
+                . ' elements.';
         },
 
         sub {
-            return ' that pays homage to classic ' . $gen_adjective->() .
-                ' ' . $gen_category->() . ' games.';
+            return ' that pays homage to classic ' . $gen_adjective->()
+                . ' ' . $gen_category->() . ' games.';
         },
 
         sub {
-            return ' based around manipulating ' . $gen_gameplay->() . ' to solve puzzles.';
+            return ' based around manipulating ' . $gen_gameplay->() 
+                . ' to solve puzzles.';
         },
 
         sub {
-            return ' that is more ' . A($gen_adjective->()) . ' experiment than a \'game\'';
+            return ' that is more ' . A($gen_adjective->())
+            . ' experiment than a \'game.\'';
         }
 
     );
 
     return $with_subs[rand @with_subs]->();
-}
-
-sub gen_character_name {
-    return "SUBJECT_CHARACTER_HERE";
 }
 
 sub gen_character {
@@ -174,6 +195,8 @@ sub print_features {
     }
 }
 
+#### Main ####
+# TODO: Command line switches, arguments, etc?
 
 print gen_game_intro, "\n\n";
 
