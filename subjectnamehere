@@ -1,12 +1,20 @@
 #!/usr/bin/env perl
 
-# escapistpress - Randomly generates buzzword-laden pitches for indie games.
+# Subject Name Here - Randomly generates buzzword-laden pitches for indie games.
 
 use strict;
 use warnings;
 use v5.16;
 
+# Lingua::EN::Inflect helps us with correctly and consistently placing the
+# a/an article in front of nouns.
+
 use Lingua::EN::Inflect qw( A AN );
+
+# List::Util gives us the shuffle() function which we're going to be making
+# heavy use of.
+
+use List::Util 'shuffle';
 
 my @buzzword_adj = qw(
     roguelike procedural retro social interactive narrative unique
@@ -41,6 +49,10 @@ my @buzzword_macguffin = (@buzzword_tool, (
 sub gen_game_name {
     return "SUBJECT_GAME_HERE";
 }
+
+# TODO: Replace the various primitives that draw from word lists with closures
+# that iterate over a shuffled word list. That way, we can just call for a
+# new adjective from anywhere in the code without getting repeat adjectives.
 
 sub gen_adjective {
     return $buzzword_adj[rand @buzzword_adj] .
@@ -123,7 +135,34 @@ sub gen_game_intro {
     return gen_game_name() . ' is ' . A(gen_game_genre() . gen_with());
 }
 
+sub print_features {
+    # First, we set up a list subroutines that return features.
+
+    my @feature_subs = (
+        sub {
+            return '- Over ' . int( rand(256) ). ' unique levels!'
+        },
+
+        sub {
+            return '- Play as a ' . gen_character_species() .
+                ', a ' . gen_character_species . ' or a ' . gen_character_species()
+                . '!';
+        },
+
+        undef # We use the null value as a delimiter...
+    );
+
+    foreach my $sub (shuffle(@feature_subs)) {
+        # If we reach the null value, stop iterating.
+        # Thus, our list of features has a random number of features.
+        last unless $sub;
+        print $sub->(), "\n";
+    }
+}
+
 
 print gen_game_intro, "\n\n";
 
 print gen_protagonist, "\n\n";
+
+print_features();
