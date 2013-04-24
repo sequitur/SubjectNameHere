@@ -16,11 +16,6 @@ use Lingua::EN::Inflect qw( A AN );
 
 use List::Util 'shuffle';
 
-my @buzzword_adj = qw(
-    roguelike procedural retro social interactive narrative unique
-    evocative dynamic story-driven atmospheric old-school hardcore
-    casual immersive physics-based skill-adaptive touchscreen-ready
-    mind-bending open-ended co-op twitch );
 
 my @buzzword_gameplay = (
     'physics', 'time', 'paint', 'gravity', 'colors', 'emotions',
@@ -33,7 +28,8 @@ my @buzzword_category = (
     'point-and-click adventure' );
 
 my @buzzword_character = (
-   'zombie', 'werewolf', 'mote of dust' );  
+   'boy', 'octopus', 'artist', 'film-maker', 'zombie', 'werewolf',
+   'mote of dust' );  
 
 my @buzzword_character_adj = qw(
     shy young adventurous colourful funny evil );
@@ -54,43 +50,62 @@ sub gen_game_name {
 # that iterate over a shuffled word list. That way, we can just call for a
 # new adjective from anywhere in the code without getting repeat adjectives.
 
-sub gen_adjective {
-    return $buzzword_adj[rand @buzzword_adj] .
-        ((rand > 0.75)?'':"/$buzzword_adj[rand @buzzword_adj]");
+sub make_adjectivator {
+    # Yeah, yeah, special cases, whatever
+    my $i = 0;
+
+    my @buzzword_adj = shuffle( qw(
+        roguelike procedural retro social interactive narrative unique
+        evocative dynamic story-driven atmospheric old-school hardcore
+        casual immersive physics-based skill-adaptive touchscreen-ready
+        mind-bending open-ended co-op twitch ) );
+
+    return sub {
+        return $buzzword_adj[$i++] .
+            ((rand > 0.75)?'':('/' . $buzzword_adj[$i++]));
+    };
 }
 
-sub gen_category {
-    return $buzzword_category[rand @buzzword_category];
+sub make_iterator {
+    my $i = 0;
+    my @buzzwords = shuffle(@_);
+
+    return sub {
+        return $buzzwords[$i++];
+    };
 }
+
+
+my $gen_adjective = make_adjectivator;
+my $gen_category = make_iterator(@buzzword_category);
+my $gen_gameplay = make_iterator(@buzzword_gameplay);
+my $gen_character_adj = make_iterator(@buzzword_character_adj);
+my $gen_character_species = make_iterator(@buzzword_character);
 
 sub gen_game_genre {
     return 
-        gen_adjective . ' ' .
-        gen_category;
-}
-
-sub gen_gameplay {
-    return $buzzword_gameplay[rand @buzzword_gameplay];
+        $gen_adjective->() . ' ' .
+        $gen_category->();
 }
 
 sub gen_with {
 
     my @with_subs = (
         sub {
-            return ' with ' . gen_adjective . ' ' . gen_category . ' elements.';
+            return ' with ' . $gen_adjective->() . ' ' . $gen_category->() . ' elements.';
         },
 
         sub {
-            return ' that pays homage to classic ' . gen_adjective .
-                ' ' . gen_category . ' games.';
+            return ' that pays homage to classic ' . $gen_adjective->() .
+                ' ' . $gen_category->() . ' games.';
         },
 
         sub {
-            return ' based around manipulating ' . gen_gameplay() . ' to solve puzzles.';
+            return ' based around manipulating ' . $gen_gameplay->() . ' to solve puzzles.';
         },
 
         sub {
-            return ' that is more ' . A(gen_adjective()) . ' experiment than a \'game\'';
+            return ' that is more ' . A($gen_adjective->()) . ' experiment than a \'game\'';
         }
 
     );
@@ -102,18 +117,9 @@ sub gen_character_name {
     return "SUBJECT_CHARACTER_HERE";
 }
 
-sub gen_character_adj {
-    return $buzzword_character_adj[rand @buzzword_character_adj];
-}
-
-sub gen_character_species {
-    return $buzzword_character[rand @buzzword_character];
-
-}
-
 sub gen_character {
-    return gen_character_name() . ', ' . A(gen_character_adj() . ' '
-        . gen_character_species());
+    return gen_character_name() . ', ' . A($gen_character_adj->() . ' '
+        . $gen_character_species->());
 }
 
 sub gen_task {
@@ -144,9 +150,17 @@ sub print_features {
         },
 
         sub {
-            return '- Play as a ' . gen_character_species() .
-                ', a ' . gen_character_species . ' or a ' . gen_character_species()
+            return '- Play as ' . A($gen_character_species->()) 
+                . ', ' . A($gen_character_species->()) . ' or '
+                . A($gen_character_species->())
                 . '!';
+        },
+
+        sub {
+            return '- Free to Play with ' .
+                (shuffle ( 
+                    'bitcoin-denominated', 'hat-based', 'purely cosmetic' ))[0] .
+                ' microtransactions!';
         },
 
         undef # We use the null value as a delimiter...
