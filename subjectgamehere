@@ -1,0 +1,129 @@
+#!/usr/bin/env perl
+
+# escapistpress - Randomly generates buzzword-laden pitches for indie games.
+
+use strict;
+use warnings;
+use v5.16;
+
+use Lingua::EN::Inflect qw( A AN );
+
+my @buzzword_adj = qw(
+    roguelike procedural retro social interactive narrative unique
+    evocative dynamic story-driven atmospheric old-school hardcore
+    casual immersive physics-based skill-adaptive touchscreen-ready
+    mind-bending open-ended co-op twitch );
+
+my @buzzword_gameplay = (
+    'physics', 'time', 'paint', 'gravity', 'colors', 'emotions',
+    'zombies' );
+
+my @buzzword_category = (
+    'puzzle-platformer', 'rpg', 'top-down shooter',
+    'first-person-puzzler', 'art game', 'platformer',
+    'immersive sim', 'survival horrror adventure',
+    'point-and-click adventure' );
+
+my @buzzword_character = (
+   'zombie', 'werewolf', 'mote of dust' );  
+
+my @buzzword_character_adj = qw(
+    shy young adventurous colourful funny evil );
+
+my @buzzword_tool = (
+    'magical sword', 'laser gun', 'paintbrush', 'biting wit'
+);
+
+my @buzzword_macguffin = (@buzzword_tool, (
+    'true love', 'a nuclear bomb', 'the secret to eternal life'
+));
+    
+sub gen_game_name {
+    return "SUBJECT_GAME_HERE";
+}
+
+sub gen_adjective {
+    return $buzzword_adj[rand @buzzword_adj] .
+        ((rand > 0.75)?'':"/$buzzword_adj[rand @buzzword_adj]");
+}
+
+sub gen_category {
+    return $buzzword_category[rand @buzzword_category];
+}
+
+sub gen_game_genre {
+    return 
+        gen_adjective . ' ' .
+        gen_category;
+}
+
+sub gen_gameplay {
+    return $buzzword_gameplay[rand @buzzword_gameplay];
+}
+
+sub gen_with {
+
+    my @with_subs = (
+        sub {
+            return ' with ' . gen_adjective . ' ' . gen_category . ' elements.';
+        },
+
+        sub {
+            return ' that pays homage to classic ' . gen_adjective .
+                ' ' . gen_category . ' games.';
+        },
+
+        sub {
+            return ' based around manipulating ' . gen_gameplay() . ' to solve puzzles.';
+        },
+
+        sub {
+            return ' that is more ' . A(gen_adjective()) . ' experiment than a \'game\'';
+        }
+
+    );
+
+    return $with_subs[rand @with_subs]->();
+}
+
+sub gen_character_name {
+    return "SUBJECT_CHARACTER_HERE";
+}
+
+sub gen_character_adj {
+    return $buzzword_character_adj[rand @buzzword_character_adj];
+}
+
+sub gen_character_species {
+    return $buzzword_character[rand @buzzword_character];
+
+}
+
+sub gen_character {
+    return gen_character_name() . ', ' . A(gen_character_adj() . ' '
+        . gen_character_species());
+}
+
+sub gen_task {
+    my @task_subs = (
+        sub {
+            return ' tasked with defeating ' . gen_character() . '.';
+        }
+    );
+
+    return $task_subs[rand @task_subs]->();
+}
+
+sub gen_protagonist {
+    return 'You play as ' . gen_character() . gen_task();
+}
+
+
+sub gen_game_intro {
+    return gen_game_name() . ' is ' . A(gen_game_genre() . gen_with());
+}
+
+
+print gen_game_intro, "\n\n";
+
+print gen_protagonist, "\n\n";
