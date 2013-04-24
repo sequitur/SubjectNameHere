@@ -1,25 +1,28 @@
-SUBJECT_GAME_HERE is a co-op/procedural survival horrror adventure that pays homage to classic twitch/procedural first-person-puzzler games.
+SUBJECT_GAME_HERE is a physics-based/twitch rpg that is more a physics-based/unique experiment than a 'game'
 
-You play as SUBJECT_CHARACTER_HERE, a young werewolf tasked with defeating SUBJECT_CHARACTER_HERE, a shy zombie.
+You play as SUBJECT_CHARACTER_HERE, an adventurous zombie tasked with defeating SUBJECT_CHARACTER_HERE, a shy werewolf.
 
-- Over 93 unique levels!
+- Play as a werewolf, a werewolf or a werewolf!
+- Over 95 unique levels!
+
 * * *
-SUBJECT_GAME_HERE is a casual/hardcore top-down shooter that pays homage to classic story-driven art game games.
 
-You play as SUBJECT_CHARACTER_HERE, a colourful werewolf tasked with defeating SUBJECT_CHARACTER_HERE, an evil mote of dust.
+SUBJECT_GAME_HERE is a procedural/skill-adaptive immersive sim that pays homage to classic skill-adaptive top-down shooter games.
 
-- Over 195 unique levels!
-- Play as a werewolf, a werewolf or a mote of dust!
+You play as SUBJECT_CHARACTER_HERE, a funny werewolf tasked with defeating SUBJECT_CHARACTER_HERE, a shy zombie.
+
+
 * * *
-SUBJECT_GAME_HERE is a physics-based/story-driven first-person-puzzler that pays homage to classic mind-bending/casual immersive sim games.
 
-You play as SUBJECT_CHARACTER_HERE, an evil mote of dust tasked with defeating SUBJECT_CHARACTER_HERE, an evil mote of dust.
+SUBJECT_GAME_HERE is an evocative/touchscreen-ready top-down shooter based around manipulating paint to solve puzzles.
 
-- Play as a zombie, a mote of dust or a zombie!
+You play as SUBJECT_CHARACTER_HERE, an adventurous zombie tasked with defeating SUBJECT_CHARACTER_HERE, an adventurous werewolf.
+
+- Play as a werewolf, a werewolf or a zombie!
+
 * * *
-SUBJECT_GAME_HERE is an open-ended/roguelike survival horrror adventure based around manipulating gravity to solve puzzles.
 
-You play as SUBJECT_CHARACTER_HERE, an evil mote of dust tasked with defeating SUBJECT_CHARACTER_HERE, a shy werewolf.
+SUBJECT_GAME_HERE is a co-op art game with unique/skill-adaptive art game elements.
 
-- Over 29 unique levels!
-- Play as a mote of dust, a werewolf or a zombie!
+You play as SUBJECT_CHARACTER_HERE, an evil werewolf tasked with defeating SUBJECT_CHARACTER_HERE, a young werewolf.
+
