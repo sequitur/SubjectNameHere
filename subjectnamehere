@@ -51,14 +51,29 @@ my @buzzword_adj = shuffle( qw(
     casual immersive physics-based skill-adaptive touchscreen-ready
     mind-bending open-ended co-op twitch ) );
 
+my @buzzword_name_openers = shuffle (
+    'Among the', 'War of the', 'Legend of the', 'Ruins of the',
+    'Tales of the', 'Secret of the', 'The Heritage' );
+
+my @buzzword_name_nouns_plural = shuffle qw(
+    Warriors Tales Legends Depths Friends Loves Chosen Barbarians Ruins
+    Scrolls );
+
+my @character_names = qw (
+    Alain Lucien Jonah Ellie Rev0 Shinzen Yagami );
+
 # TODO: Actually write this.
 
 sub gen_game_name {
-    return "SUBJECT_GAME_HERE";
-}
+    my @generators = shuffle (
 
-sub gen_character_name {
-    return "SUBJECT_CHARACTER_HERE";
+        sub {
+            return $buzzword_name_openers[0] . ' ' . $buzzword_name_nouns_plural[0];
+        }
+    );
+
+    return $generators[rand @generators]->();
+
 }
 
 # Takes a list of items, and returns a reference to an anonymous stateful 
@@ -95,6 +110,7 @@ my $gen_category = make_iterator(@buzzword_category);
 my $gen_gameplay = make_iterator(@buzzword_gameplay);
 my $gen_character_adj = make_iterator(@buzzword_character_adj);
 my $gen_character_species = make_iterator(@buzzword_character);
+my $gen_character_name = make_iterator(@character_names);
 
 #### Composite Generators ####
 # Those functions take the primitives we defined before and mash them together
@@ -139,7 +155,7 @@ sub gen_with {
 }
 
 sub gen_character {
-    return gen_character_name() . ', ' . A($gen_character_adj->() . ' '
+    return $gen_character_name->() . ', ' . A($gen_character_adj->() . ' '
         . $gen_character_species->());
 }
 
