@@ -7,35 +7,9 @@ use v5.16;
 use Lingua::EN::Inflect qw( A AN );
 use List::Util 'shuffle';
 
+extends 'Buzzwords::Shuffler';
+
 # Generates random buzzword-laden pitches for indie games.
-
-sub BUILD {
-
-    my $self = shift;
-
-    foreach my $category (keys %{$self->buzzwords}) {
-        my $func_name = $category;
-        $func_name =~ s/:/_/g;
-
-        __PACKAGE__->meta->add_method(
-            "gen_$func_name" => $self->make_iterator(${$self->buzzwords}{$category})
-        );
-
-    }
-}
-
-has buzzwords => (
-    is => 'ro',
-    isa => 'HashRef',
-    default => sub {
-        use Buzzwords::Reader;
-        my %buzzwords = get_buzzwords('indiegaming.buzz');
-        return \%buzzwords;
-    },
-);
-
-
-
 
 sub gen_game_name {
     my $self = shift;
@@ -53,30 +27,6 @@ sub gen_game_name {
 
 # Takes a list of items, and returns a reference to an anonymous stateful 
 # function that iterates returns those items one at a time in a random order.
-
-sub make_iterator {
-    my $self = shift;
-
-    my $i = 0;
-    my @buzzwords = shuffle(@{$_[0]});
-
-    return sub {
-        return $buzzwords[$i++];
-    };
-}
-
-# Same as make_iterator, but returns foo/bar 25% of the time.
-
-sub make_adjectivator {
-    # Yeah, yeah, special cases, whatever
-    my $i = 0;
-    my @buzzwords = @{$_[0]};
-
-    return sub {
-        return $buzzwords[$i++] .
-            ((rand > 0.75)?'':('/' . $buzzwords[$i++]));
-    };
-}
 
 #### Primitive Generators ####
 # We turn our hash of keys => array references which hold our source word lists,
