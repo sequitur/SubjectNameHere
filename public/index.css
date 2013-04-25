@@ -6,10 +6,12 @@ div {
 	max-width: 700px;
 	font-family: 'Roboto Condensed', sans-serif;
 	margin: 0 auto;
+	text-align: justify;
 }
 
-h1 {
+div#title h1 {
 	color: #ffffff;
+	text-shadow: 1px 1px 3px #404040
 }
 
 div#title {
@@ -30,6 +32,10 @@ div#buzzwords {
 
 	box-shadow: 1px 1px 3px 3px #404040;
 	font-weight: 300;
+	text-align justify;
+}
+
+div#buzzwords p {
 }
 
 div#footer {
@@ -38,5 +44,30 @@ div#footer {
 	height: 2em;
 
 	color: #202020
+	text-align: center;
 }
 
+div#footer p {
+	text-align: center;
+}
+
+a {
+	color: #303030;
+	font-weight: bold;
+	font-style: normal;
+	text-decoration: none;
+}
+
+div#footer a {
+	color: #f0f0d0;
+}
+
+div#footer a:hover {
+	color: #f0f020;
+}
+
+
+
+a:hover {
+	color: #f0c010;
+}

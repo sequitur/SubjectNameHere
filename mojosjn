@@ -9,6 +9,11 @@ get '/' => sub {
     $self->render;
 } => 'index';
 
+get '/about' => sub {
+    my $self = shift;
+    $self->render;
+} => 'about';
+
 helper buzzwords => sub {
     my $content = Buzzwords::Indie->new();
     return markdown( $content->generate_content());
