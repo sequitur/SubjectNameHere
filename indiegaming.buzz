@@ -31,7 +31,14 @@ sentient blob of flesh
 
 [name:nouns:plural]
 Warriors|Tales|Legends|Depths|Friends|Loves|Chosen|Barbarians
-Ruins|Scrolls
+Ruins|Scrolls|Hearts
+
+[name:nouns]
+Tale|Story|Quest|Stone|Cavern|Dungeon|Romance|Love|War|Never|Braid
+Mystery|Experience
+
+[name:pretentious]
+Serendipity|Anathema|Analogue|Incipience|Religion|Beauty
 
 [character:adj]
 shy|young|adventurous|colourful|funny|evil|curious|disturbed
@@ -70,3 +77,10 @@ haunted|dark|deep|weird|deadly|dangerous|entrancing|wonderful
 
 [environment]
 cavern|dungeon|forest|palace|castle|office building|tower|battlefield
+
+[project:type]
+fad Kickstarter|Peter Molyneux game|Jonathan Blow vaporware
+Humble Indie Bundle filler|Steam $5 deal of the day
+
+[social:media]
+Twitter|Facebook|Google+|Pinterest|Reddit|Instagram
