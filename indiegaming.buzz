@@ -1,0 +1,72 @@
+# Subject Name Here buzzwords file.
+#
+# This file is made up of sections headed up like INI file sections,
+# containing pipe-separated/newline-separated values. There's 
+# no escape character, but everything after a # and empty lines
+# are ignored.
+#
+# Currently, data placed outside the first section is placed in the
+# 'default' list and is unused, as are some of the lists here.
+
+[input]
+a guitar controller|analog sticks|voice activation|eye-tracking
+motion control|the Xbox Kinect|a wiimote|social media
+
+[issues]
+depression|loss|loneliness|gender|storytelling|family|relationships
+love|bigotry|racism|homophobia|art|romance|oppression|sexuality
+
+[goals]
+solve puzzles|defeat enemies|accumulate points|climb up the leaderboards
+unlock achievements|unlock content|explore the narrative
+learn the game's secrets
+
+[macguffin]
+true love|a nuclear bomb|the secret to eternal life
+
+[character]
+boy|octopus|artist|film-maker|zombie|werewolf|mote of dust
+girl|assassin|ninja|vampire|princess|dominatrix|alien|mutant
+sentient blob of flesh
+
+[name:nouns:plural]
+Warriors|Tales|Legends|Depths|Friends|Loves|Chosen|Barbarians
+Ruins|Scrolls
+
+[character:adj]
+shy|young|adventurous|colourful|funny|evil|curious|disturbed
+sickly|stealthy|adorable
+
+[name:openers]
+Among the|War of the|Legend of the|Ruins of the|Tales of the|Secret of the
+The Heritage
+
+[adj]
+roguelike|procedural|retro|social|interactive|narrative|unique|evocative
+dynamic|story-driven|atmospheric|old-school|hardcore|casual|immersive
+physics-based|skill-adaptive|touchscreen-ready|mind-bending|open-ended
+co-op|twitchy|fast-paced|post-apocalyptic|open-world
+
+[microtransaction:adj]
+hat-based|bitcoin-denominated|affordable|premium|real money
+in-app|Xbox Live
+
+[gameplay]
+physics|time|paint|gravity|colors|emotions|zombies
+
+[character:names]
+Alain|Lucien|Jonah|Ellie|Rev0|Shinzen|Yagami
+
+[tool]
+magical sword|laser gun|paintbrush|biting wit|time-bending superpowers
+enchanted lyre|mismatched pack of pet penguins
+
+[category]
+puzzle-platformer|rpg|top-down shooter|first-person-puzzler|art game
+platformer|immersive sim|survival horror adventure|point-and-click adventure
+
+[environment:adj]
+haunted|dark|deep|weird|deadly|dangerous|entrancing|wonderful
+
+[environment]
+cavern|dungeon|forest|palace|castle|office building|tower|battlefield
