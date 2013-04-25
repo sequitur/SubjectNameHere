@@ -11,6 +11,17 @@ extends 'Buzzwords::Shuffler';
 
 # Generates random buzzword-laden pitches for indie games.
 
+has game_name => (
+    is => 'ro',
+    lazy => 1,
+    default => sub {
+        my $self = shift;
+        return $self->gen_game_name;
+    }
+);
+
+
+
 sub gen_game_name {
     my $self = shift;
     my @generators = shuffle (
@@ -18,6 +29,18 @@ sub gen_game_name {
         sub {
             return $self->gen_name_openers . ' '
             . $self->gen_name_nouns_plural;
+        },
+
+        sub {
+            return $self->gen_name_nouns . $self->gen_name_nouns;
+        },
+
+        sub {
+            return $self->gen_name_nouns . "'s " . $self->gen_name_nouns;
+        },
+
+        sub {
+            return $self->gen_name_pretentious . int( rand 256 );
         }
     );
 
@@ -25,25 +48,16 @@ sub gen_game_name {
 
 }
 
-# Takes a list of items, and returns a reference to an anonymous stateful 
-# function that iterates returns those items one at a time in a random order.
-
-#### Primitive Generators ####
-# We turn our hash of keys => array references which hold our source word lists,
-# and make it into a hash of keys => function references which point to closures
-# that themselves iterate over a randomized list of buzzwords.
-
-
 #### Composite Generators ####
-# Those functions take the primitives we defined before and mash them together
-# into sentences and sentence fragments. A common pattern here is to pick random
-# functions out of a list of anonymous functions to choose what kind of
-# phrase to insert.
+# These functions take the primitives defined in Buzzwords::Shuffler and mash
+# them together into sentences and sentence fragments. A common pattern here is
+# to pick random functions out of a list of anonymous functions to choose what
+# kind of phrase to insert.
 
 sub gen_game_genre {
     # Returns a string for the game's genre, which has a chance of including
     # two adjectives.
-    #
+    
     my $self = shift;
 
     return 
@@ -75,6 +89,11 @@ sub gen_with {
         },
 
         sub {
+            return ' inspired by ' . $self->gen_adj_national
+                . ' ' . $self->gen_category . 's.';
+            },
+
+        sub {
             return ' that is more ' . A($self->gen_adj)
             . ' experiment than a \'game.\'';
         }
@@ -98,7 +117,19 @@ sub gen_gimmick {
             return 'The game explores issues of '
             . ' ' . $self->gen_issues . ', ' . $self->gen_issues . ', and ' . $self->gen_issues
             . ' in the context of ' . $self->gen_adj . ' gameplay.'
-        }
+        },
+        sub {
+            return $self->game_name . ' features stunning '
+                . $self->gen_adj_graphics . ' graphics.';
+        },
+        sub {
+            return $self->game_name . ' challenges conventional notions about '
+                . $self->gen_category . ' design.';
+        },
+        sub {
+            return 'The game was built by ' . $self->gen_team . ' using only '
+                . $self->gen_engine . '.';
+        },
 
     );
 
@@ -133,10 +164,20 @@ sub gen_task {
         },
 
         sub {
+            return ' who falls in love with ' . A($self->gen_character_archetype())
+                . '.';
+        },
+
+        sub {
             return ', and use only  your ' . $self->gen_tool
                 . ' to navigate the maze-like environment of '
                 . A($self->gen_environment_adj) . ' ' . $self->gen_environment . '.';
-        }
+        },
+
+        sub {
+            return ' who embarks on a quest to find ' 
+                . $self->gen_macguffin . '.';
+        },
     );
 
     return $task_subs[rand @task_subs]->();
@@ -152,7 +193,9 @@ sub gen_protagonist {
 sub gen_game_intro {
 
     my $self = shift;
-    return $self->gen_game_name() . ' is ' . A($self->gen_game_genre() 
+
+    return '#' . $self->game_name . "\n\n"
+        . $self->game_name . ' is ' . A($self->gen_game_genre() 
         . $self->gen_with())
         . ' ' . $self->gen_gimmick();
 }
@@ -185,6 +228,21 @@ sub gen_features {
             return '- ' . int( rand(256) ) . ' achievements to unlock!';
         },
 
+        sub {
+            return '- More than ' . int( rand 256 ) . ' multiplayer modes!';
+        },
+
+        sub {
+            return '- Track your achievements and challenge your friends via '
+                . $self->gen_social_media . '!';
+            },
+
+        sub {
+            return '- Use your ' . $self->gen_tool . ' to defeat over '
+                . int( rand 256 ) . ' unique enemies!';
+        },
+
+
         undef # We use the null value as a delimiter...
     );
 
@@ -199,11 +257,18 @@ sub gen_features {
     return @features;
 }
 
+sub gen_game_context {
+    my $self = shift;
+
+    return 'Your next ' . $self->gen_project_type . ':';
+}
+
 sub generate_content {
 
     my $self = shift;
 
-    return $self->gen_game_intro . "\n\n"
+    return $self->gen_game_context . "\n\n"
+        . $self->gen_game_intro . "\n\n"
         . $self->gen_protagonist . "\n\n"
         . join('', $self->gen_features());
 }

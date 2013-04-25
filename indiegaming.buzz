@@ -31,7 +31,14 @@ sentient blob of flesh
 
 [name:nouns:plural]
 Warriors|Tales|Legends|Depths|Friends|Loves|Chosen|Barbarians
-Ruins|Scrolls
+Ruins|Scrolls|Hearts
+
+[name:nouns]
+Tale|Story|Quest|Stone|Cavern|Dungeon|Romance|Love|War|Never|Braid
+Mystery|Experience
+
+[name:pretentious]
+Serendipity|Anathema|Analogue|Incipience|Religion|Beauty
 
 [character:adj]
 shy|young|adventurous|colourful|funny|evil|curious|disturbed
@@ -45,7 +52,14 @@ The Heritage
 roguelike|procedural|retro|social|interactive|narrative|unique|evocative
 dynamic|story-driven|atmospheric|old-school|hardcore|casual|immersive
 physics-based|skill-adaptive|touchscreen-ready|mind-bending|open-ended
-co-op|twitchy|fast-paced|post-apocalyptic|open-world
+co-op|twitchy|fast-paced|post-apocalyptic|open-world|award-winning
+IGF-nominated
+
+[adj:graphics]
+black-and-white|2.5d|pixel art|retrogaming|hand-drawn|painterly|vector
+
+[adj:national]
+Japanese|Hungarian|French|German|Korean|Chinese
 
 [microtransaction:adj]
 hat-based|bitcoin-denominated|affordable|premium|real money
@@ -70,3 +84,20 @@ haunted|dark|deep|weird|deadly|dangerous|entrancing|wonderful
 
 [environment]
 cavern|dungeon|forest|palace|castle|office building|tower|battlefield
+
+[project:type]
+fad Kickstarter|Peter Molyneux game|Jonathan Blow vaporware
+Humble Indie Bundle filler|Steam $5 deal of the day
+
+[social:media]
+Twitter|Facebook|Google+|Pinterest|Reddit|Instagram
+
+[team]
+a team of Digipen students|a team of professional game designers
+a group of dedicated hobbyists
+the participants of a special-purpose Game Jam
+a single programmer over the course of one afternoon
+
+[engine]
+the Unreal engine|the Unity3d engine|the Source engine|Java
+Atari 1600 machine language
