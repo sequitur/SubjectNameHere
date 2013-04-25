@@ -1,41 +1,49 @@
 package Buzzwords::Indie;
 
-
 use Mouse;
+use namespace::autoclean;
+
 use v5.16;
 use Lingua::EN::Inflect qw( A AN );
 use List::Util 'shuffle';
 
-use Buzzwords::Reader;
-
 # Generates random buzzword-laden pitches for indie games.
 
-has 'generators',
-    is => 'rw',
-    isa => 'HashRef',
-    default => sub {
+sub BUILD {
 
     my $self = shift;
 
-    my %buzzwords = get_buzzwords('indiegaming.buzz');
-    my %generators;
+    foreach my $category (keys %{$self->buzzwords}) {
+        my $func_name = $category;
+        $func_name =~ s/:/_/g;
 
-    foreach my $category (keys %buzzwords) {
-        %generators = ( %generators,
-            $category => $self->make_iterator($buzzwords{$category}) );
-    };
+        __PACKAGE__->meta->add_method(
+            "gen_$func_name" => $self->make_iterator(${$self->buzzwords}{$category})
+        );
 
-    return \%generators;
+    }
+}
 
-};
+has buzzwords => (
+    is => 'ro',
+    isa => 'HashRef',
+    default => sub {
+        use Buzzwords::Reader;
+        my %buzzwords = get_buzzwords('indiegaming.buzz');
+        return \%buzzwords;
+    },
+);
+
+
+
 
 sub gen_game_name {
     my $self = shift;
     my @generators = shuffle (
 
         sub {
-            return $self->gen('name:openers') . ' '
-            . $self->gen('name:nouns:plural');
+            return $self->gen_name_openers . ' '
+            . $self->gen_name_nouns_plural;
         }
     );
 
@@ -76,20 +84,6 @@ sub make_adjectivator {
 # that themselves iterate over a randomized list of buzzwords.
 
 
-sub gen {
-    # This sub is basically sugar. It takes the name of a
-    # word generator stored in %generators and calls it, returning
-    # its value.
-
-    my $self = shift;
-    
-    my ($category) = @_;
-
-    if (not ${$self->generators()}{$category}) { die "Can't find generator $category!" };
-
-    return ${$self->generators()}{$category}->();
-}
-
 #### Composite Generators ####
 # Those functions take the primitives we defined before and mash them together
 # into sentences and sentence fragments. A common pattern here is to pick random
@@ -103,9 +97,9 @@ sub gen_game_genre {
     my $self = shift;
 
     return 
-        $self->gen('adj') 
-        . ((rand > 0.7)?(', ' . $self->gen('adj')):'')
-        . ' ' .  $self->gen('category');
+        $self->gen_adj 
+        . ((rand > 0.7)?(', ' . $self->gen_adj):'')
+        . ' ' .  $self->gen_category;
 }
 
 sub gen_with {
@@ -116,22 +110,22 @@ sub gen_with {
 
     my @with_subs = (
         sub {
-            return ' with ' . $self->gen('adj') . ' ' . $self->gen('category')
+            return ' with ' . $self->gen_adj . ' ' . $self->gen_category
                 . ' elements.';
         },
 
         sub {
-            return ' that pays homage to classic ' . $self->gen('adj')
-                . ' ' . $self->gen('category') . ' games.';
+            return ' that pays homage to classic ' . $self->gen_adj
+                . ' ' . $self->gen_category . ' games.';
         },
 
         sub {
-            return ' based around manipulating ' . $self->gen('gameplay') 
+            return ' based around manipulating ' . $self->gen_gameplay 
                 . ' to solve puzzles.';
         },
 
         sub {
-            return ' that is more ' . A($self->gen('adj'))
+            return ' that is more ' . A($self->gen_adj)
             . ' experiment than a \'game.\'';
         }
 
@@ -145,15 +139,15 @@ sub gen_gimmick {
     my $self = shift;
     my @gimmick_subs = (
         sub {
-            return 'The ' . $self->gen('adj') . ' gameplay consists of using ' . $self->gen('input')
-                . ' to control ' . $self->gen('gameplay') . ', in order to ' . $self->gen('goals')
+            return 'The ' . $self->gen_adj . ' gameplay consists of using ' . $self->gen_input
+                . ' to control ' . $self->gen_gameplay . ', in order to ' . $self->gen_goals
                 . '.';
             },
 
         sub {
             return 'The game explores issues of '
-            . ' ' . $self->gen('issues') . ', ' . $self->gen('issues') . ', and ' . $self->gen('issues')
-            . ' in the context of ' . $self->gen('adj') . ' gameplay.'
+            . ' ' . $self->gen_issues . ', ' . $self->gen_issues . ', and ' . $self->gen_issues
+            . ' in the context of ' . $self->gen_adj . ' gameplay.'
         }
 
     );
@@ -166,13 +160,13 @@ sub gen_gimmick {
 sub gen_character {
 
     my $self = shift;
-    return $self->gen('character:names') . ', ' . A($self->gen_character_archetype());
+    return $self->gen_character_names . ', ' . A($self->gen_character_archetype());
 }
 
 sub gen_character_archetype {
 
     my $self = shift;
-    return $self->gen('character:adj') . ' ' . $self->gen('character');
+    return $self->gen_character_adj . ' ' . $self->gen_character_type;
 }
 
 sub gen_task {
@@ -189,9 +183,9 @@ sub gen_task {
         },
 
         sub {
-            return ', and use only  your ' . $self->gen('tool')
+            return ', and use only  your ' . $self->gen_tool
                 . ' to navigate the maze-like environment of '
-                . A($self->gen('environment:adj')) . ' ' . $self->gen('environment') . '.';
+                . A($self->gen_environment_adj) . ' ' . $self->gen_environment . '.';
         }
     );
 
@@ -221,19 +215,19 @@ sub gen_features {
     my @feature_subs = (
         sub {
             return '- Over ' . int( rand(256) ). ' '
-                . $self->gen('environment:adj') . ' levels!'
+                . $self->gen_environment_adj . ' levels!'
         },
 
         sub {
-            return '- Play as ' . A($self->gen('character')) 
-                . ', ' . A($self->gen('character')) . ' or '
-                . A($self->gen('character'))
+            return '- Play as ' . A($self->gen_character_type) 
+                . ', ' . A($self->gen_character_type) . ' or '
+                . A($self->gen_character_type)
                 . '!';
         },
 
         sub {
             return '- Free to Play with ' 
-                . $self->gen('microtransaction:adj')
+                . $self->gen_microtransaction_adj
                 . ' microtransactions!';
         },
 
@@ -263,5 +257,7 @@ sub generate_content {
         . $self->gen_protagonist . "\n\n"
         . join('', $self->gen_features());
 }
+
+__PACKAGE__->meta->make_immutable();
 
 1;
