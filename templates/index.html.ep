@@ -1,0 +1,14 @@
+<!DOCTYPE html \>
+<head>
+  <meta charset="utf-8" \>
+  <title>Subject Name Here</title>
+  %= stylesheet 'index.css'
+</head>
+<body>
+  <div class="title">
+    <h1>Subject Name Here</h1>
+  </div>
+  <div class="buzzwords">
+    <%== buzzwords %>
+  </div>
+</body>

@@ -1,0 +1,16 @@
+#!/usr/bin/env perl
+
+use Mojolicious::Lite;
+use Buzzwords::Indie;
+use Text::Markdown 'markdown';
+
+get '/' => sub {
+    my $self = shift;
+    $self->render;
+} => 'index';
+
+helper buzzwords => sub {
+    return markdown( generate_content());
+};
+
+app->start;
