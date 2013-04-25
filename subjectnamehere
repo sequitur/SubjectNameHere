@@ -19,48 +19,39 @@ use List::Util 'shuffle';
 #### Hardcoded Definitions #####
 # TODO: Move this off into its own file, preferably in a human-readable format.
 
-my @buzzword_gameplay = (
-    'physics', 'time', 'paint', 'gravity', 'colors', 'emotions',
-    'zombies' );
+open(BUZZWORDS, '<', 'buzzwords') or die "Can't open buzzword file: $!";
 
-my @buzzword_category = (
-    'puzzle-platformer', 'rpg', 'top-down shooter',
-    'first-person-puzzler', 'art game', 'platformer',
-    'immersive sim', 'survival horrror adventure',
-    'point-and-click adventure' );
+my $current_block_name = 'default';
+my @current_block_content;
 
-my @buzzword_character = (
-   'boy', 'octopus', 'artist', 'film-maker', 'zombie', 'werewolf',
-   'mote of dust' );  
+my %buzzwords;
 
-my @buzzword_character_adj = qw(
-    shy young adventurous colourful funny evil );
+while (<BUZZWORDS>) {
 
-my @buzzword_tool = (
-    'magical sword', 'laser gun', 'paintbrush', 'biting wit'
-);
+    chomp;
+    s/^\s*(\S*)#.*/$1\n/; # Strip out comments and leading whitespace.
+    next if /^$/; # Empty line; do nothing.
 
-my @buzzword_macguffin = (@buzzword_tool, (
-    'true love', 'a nuclear bomb', 'the secret to eternal life'
-));
+    if ( /^\[(.+)\]/ ) { # Start of a new block
 
-    
-my @buzzword_adj = shuffle( qw(
-    roguelike procedural retro social interactive narrative unique
-    evocative dynamic story-driven atmospheric old-school hardcore
-    casual immersive physics-based skill-adaptive touchscreen-ready
-    mind-bending open-ended co-op twitch ) );
+        %buzzwords = ( %buzzwords,
+            $current_block_name => [ @current_block_content ] );
 
-my @buzzword_name_openers = shuffle (
-    'Among the', 'War of the', 'Legend of the', 'Ruins of the',
-    'Tales of the', 'Secret of the', 'The Heritage' );
+        $current_block_name = $1;
+        @current_block_content = ();
+        next
+    }
 
-my @buzzword_name_nouns_plural = shuffle qw(
-    Warriors Tales Legends Depths Friends Loves Chosen Barbarians Ruins
-    Scrolls );
+    # If this is neither an empty line nor a block header, assume it's
+    # a line containing block content.
 
-my @character_names = qw (
-    Alain Lucien Jonah Ellie Rev0 Shinzen Yagami );
+    push( @current_block_content, split( qr/\|/, $_ ) );
+}
+
+%buzzwords = ( %buzzwords,
+    $current_block_name => [ @current_block_content] );
+
+close BUZZWORDS;
 
 # TODO: Actually write this.
 
@@ -68,7 +59,9 @@ sub gen_game_name {
     my @generators = shuffle (
 
         sub {
-            return $buzzword_name_openers[0] . ' ' . $buzzword_name_nouns_plural[0];
+            my ($opener) = shuffle(@{$buzzwords{'name:openers'}});
+            my ($noun) = shuffle(@{$buzzwords{'name:nouns:plural'}});
+            return $opener . ' ' . $noun;
         }
     );
 
@@ -81,7 +74,7 @@ sub gen_game_name {
 
 sub make_iterator {
     my $i = 0;
-    my @buzzwords = shuffle(@_);
+    my @buzzwords = shuffle(@{$_[0]});
 
     return sub {
         return $buzzwords[$i++];
@@ -93,7 +86,7 @@ sub make_iterator {
 sub make_adjectivator {
     # Yeah, yeah, special cases, whatever
     my $i = 0;
-    my @buzzwords = @_;
+    my @buzzwords = @{$_[0]};
 
     return sub {
         return $buzzwords[$i++] .
@@ -105,12 +98,12 @@ sub make_adjectivator {
 # programatically/metaprogramatically, especially because it'll only get
 # worse.
 
-my $gen_adjective = make_adjectivator(@buzzword_adj);
-my $gen_category = make_iterator(@buzzword_category);
-my $gen_gameplay = make_iterator(@buzzword_gameplay);
-my $gen_character_adj = make_iterator(@buzzword_character_adj);
-my $gen_character_species = make_iterator(@buzzword_character);
-my $gen_character_name = make_iterator(@character_names);
+my $gen_adjective = make_adjectivator($buzzwords{'adj'});
+my $gen_category = make_iterator($buzzwords{'category'});
+my $gen_gameplay = make_iterator($buzzwords{'gameplay'});
+my $gen_character_adj = make_iterator($buzzwords{'character:adj'});
+my $gen_character_species = make_iterator($buzzwords{'character'});
+my $gen_character_name = make_iterator($buzzwords{'character:names'});
 
 #### Composite Generators ####
 # Those functions take the primitives we defined before and mash them together
