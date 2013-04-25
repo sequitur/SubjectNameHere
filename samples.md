@@ -1,29 +1,32 @@
-Tales of the Depths is a roguelike rpg that is more a procedural/retro experiment than a 'game.'
+Secret of the Barbarians is a narrative top-down shooter that is more a casual experiment than a 'game.' The fast-paced gameplay consists of using voice activation to control zombies, in order to defeat enemies.
 
-You play as Jonah, an evil zombie tasked with defeating Lucien, an adventurous boy.
+You play as Lucien, a funny werewolf tasked with defeating a shy zombie.
 
-- Free to Play with purely cosmetic microtransactions!
-- Over 207 unique levels!
-
-* * *
-Ruins of the Chosen is a roguelike/procedural survival horror adventure that is more a retro/social experiment than a 'game.'
-
-You play as Rev0, a funny zombie tasked with defeating Yagami, a young werewolf.
-
+- Over 252 dangerous levels!
 - Free to Play with bitcoin-denominated microtransactions!
-- Over 80 unique levels!
-- Play as a boy, an octopus or an artist!
 
 * * *
-Tales of the Tales is a roguelike/procedural puzzle-platformer based around manipulating zombies to solve puzzles.
+Ruins of the Depths is a retro top-down shooter based around manipulating emotions to solve puzzles. The game explores issues of  homophobia, loss, and depression in the context of touchscreen-ready gameplay.
 
-You play as Jonah, a funny werewolf tasked with defeating Ellie, an adventurous mote of dust.
+You play as Shinzen, a funny artist tasked with defeating a shy film-maker.
 
+- 91achievements to unlock!
+
+* * *
+Among the Legends is a touchscreen-ready platformer with social first-person-puzzler elements. The mind-bending gameplay consists of using motion control to control colors, in order to climb up the leaderboards.
+
+You play as Ellie, an evil zombie tasked with defeating a funny film-maker.
+
+- Play as a mote of dust, an octopus or a werewolf!
+- Over 64 entrancing levels!
+- 128achievements to unlock!
 - Free to Play with hat-based microtransactions!
 
 * * *
-Legend of the Depths is a roguelike/procedural first-person-puzzler based around manipulating physics to solve puzzles.
+Among the Scrolls is a procedural platformer based around manipulating gravity to solve puzzles. The game explores issues of  loss, homophobia, and gender in the context of atmospheric gameplay.
 
-You play as Ellie, a shy zombie tasked with defeating Shinzen, a colourful film-maker.
+You play as Yagami, a colourful mote of dust, and use only a paintbrush to navigate the maze-like environment of a wonderful dungeon.
 
-- Play as an octopus, an artist or a mote of dust!
+- Play as an artist, a boy or a film-maker!
+- 187achievements to unlock!
+- Free to Play with hat-based microtransactions!

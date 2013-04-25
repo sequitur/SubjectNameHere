@@ -94,16 +94,28 @@ sub make_adjectivator {
     };
 }
 
-# TODO: This block is awfully repetitious. Figure out a way to do this
-# programatically/metaprogramatically, especially because it'll only get
-# worse.
+#### Primitive Generators ####
+# We turn our hash of keys => array references which hold our source word lists,
+# and make it into a hash of keys => function references which point to closures
+# that themselves iterate over a randomized list of buzzwords.
 
-my $gen_adjective = make_adjectivator($buzzwords{'adj'});
-my $gen_category = make_iterator($buzzwords{'category'});
-my $gen_gameplay = make_iterator($buzzwords{'gameplay'});
-my $gen_character_adj = make_iterator($buzzwords{'character:adj'});
-my $gen_character_species = make_iterator($buzzwords{'character'});
-my $gen_character_name = make_iterator($buzzwords{'character:names'});
+my %generators;
+foreach my $category (keys %buzzwords) {
+    %generators = ( %generators,
+        $category => make_iterator($buzzwords{$category}) );
+};
+
+sub gen {
+    # This sub is basically sugar. It takes the name of a
+    # word generator stored in %generators and calls it, returning
+    # its value.
+    
+    my ($category) = @_;
+
+    if (not $generators{$category}) { die "Can't find generator $category!" };
+
+    return $generators{$category}->();
+}
 
 #### Composite Generators ####
 # Those functions take the primitives we defined before and mash them together
@@ -112,9 +124,13 @@ my $gen_character_name = make_iterator($buzzwords{'character:names'});
 # phrase to insert.
 
 sub gen_game_genre {
+    # Returns a string for the game's genre, which has a chance of including
+    # two adjectives.
+    #
     return 
-        $gen_adjective->() . ' ' .
-        $gen_category->();
+        gen('adj') 
+        . ((rand > 0.7)?(', ' . gen('adj')):'')
+        . ' ' .  gen('category');
 }
 
 sub gen_with {
@@ -123,22 +139,22 @@ sub gen_with {
 
     my @with_subs = (
         sub {
-            return ' with ' . $gen_adjective->() . ' ' . $gen_category->()
+            return ' with ' . gen('adj') . ' ' . gen('category')
                 . ' elements.';
         },
 
         sub {
-            return ' that pays homage to classic ' . $gen_adjective->()
-                . ' ' . $gen_category->() . ' games.';
+            return ' that pays homage to classic ' . gen('adj')
+                . ' ' . gen('category') . ' games.';
         },
 
         sub {
-            return ' based around manipulating ' . $gen_gameplay->() 
+            return ' based around manipulating ' . gen('gameplay') 
                 . ' to solve puzzles.';
         },
 
         sub {
-            return ' that is more ' . A($gen_adjective->())
+            return ' that is more ' . A(gen('adj'))
             . ' experiment than a \'game.\'';
         }
 
@@ -147,15 +163,50 @@ sub gen_with {
     return $with_subs[rand @with_subs]->();
 }
 
+sub gen_gimmick {
+    my @gimmick_subs = (
+        sub {
+            return 'The ' . gen('adj') . ' gameplay consists of using ' . gen('input')
+                . ' to control ' . gen('gameplay') . ', in order to ' . gen('goals')
+                . '.';
+            },
+
+        sub {
+            return 'The game explores issues of '
+            . ' ' . gen('issues') . ', ' . gen('issues') . ', and ' . gen('issues')
+            . ' in the context of ' . gen('adj') . ' gameplay.'
+        }
+
+    );
+
+    return $gimmick_subs[rand @gimmick_subs]->();
+}
+
+
+
 sub gen_character {
-    return $gen_character_name->() . ', ' . A($gen_character_adj->() . ' '
-        . $gen_character_species->());
+    return gen('character:names') . ', ' . A(gen_character_archetype());
+}
+
+sub gen_character_archetype {
+    return gen('character:adj') . ' ' . gen('character');
 }
 
 sub gen_task {
     my @task_subs = (
         sub {
-            return ' tasked with defeating ' . gen_character() . '.';
+            return ' tasked with defeating ' . A(gen_character_archetype()) . '.';
+        },
+
+        sub {
+            return ', who must rescue ' . A(gen_character_archetype()) 
+                . ' from certain death.'
+        },
+
+        sub {
+            return ', and use only ' . A(gen('tool'))
+                . ' to navigate the maze-like environment of '
+                . A(gen('environment:adj')) . ' ' . gen('environment') . '.';
         }
     );
 
@@ -168,7 +219,8 @@ sub gen_protagonist {
 
 
 sub gen_game_intro {
-    return gen_game_name() . ' is ' . A(gen_game_genre() . gen_with());
+    return gen_game_name() . ' is ' . A(gen_game_genre() . gen_with())
+        . ' ' . gen_gimmick();
 }
 
 sub print_features {
@@ -176,13 +228,14 @@ sub print_features {
 
     my @feature_subs = (
         sub {
-            return '- Over ' . int( rand(256) ). ' unique levels!'
+            return '- Over ' . int( rand(256) ). ' '
+                . gen('environment:adj') . ' levels!'
         },
 
         sub {
-            return '- Play as ' . A($gen_character_species->()) 
-                . ', ' . A($gen_character_species->()) . ' or '
-                . A($gen_character_species->())
+            return '- Play as ' . A(gen('character')) 
+                . ', ' . A(gen('character')) . ' or '
+                . A(gen('character'))
                 . '!';
         },
 
@@ -191,6 +244,10 @@ sub print_features {
                 (shuffle ( 
                     'bitcoin-denominated', 'hat-based', 'purely cosmetic' ))[0] .
                 ' microtransactions!';
+        },
+
+        sub {
+            return '- ' . int( rand(256) ) . 'achievements to unlock!';
         },
 
         undef # We use the null value as a delimiter...

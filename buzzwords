@@ -8,6 +8,17 @@
 # Currently, data placed outside the first section is placed in the
 # 'default' list and is unused, as are some of the lists here.
 
+[input]
+a guitar controller|analog sticks|voice activation|eye-tracking
+motion control|the XBox Kinect|a wiimote|social media
+
+[issues]
+depression|loss|loneliness|gender|storytelling|family|relationships
+love|bigotry|racism|homophobia|art
+
+[goals]
+solve puzzles|defeat enemies|accumulate points|climb up the leaderboards
+unlock achievements
 
 [macguffin]
 true love|a nuclear bomb|the secret to eternal life
@@ -29,7 +40,7 @@ The Heritage
 roguelike|procedural|retro|social|interactive|narrative|unique|evocative
 dynamic|story-driven|atmospheric|old-school|hardcore|casual|immersive
 physics-based|skill-adaptive|touchscreen-ready|mind-bending|open-ended
-co-op|twitch
+co-op|twitchy|fast-paced
 
 [gameplay]
 physics|time|paint|gravity|colors|emotions|zombies
@@ -38,9 +49,15 @@ physics|time|paint|gravity|colors|emotions|zombies
 Alain|Lucien|Jonah|Ellie|Rev0|Shinzen|Yagami
 
 [tool]
-magical sword|laser gun|paintbrush|biting wit
+magical sword|laser gun|paintbrush|biting wit|time-bending superpowers
+enchanted lyre|mismatched pack of pet penguins
 
 [category]
 puzzle-platformer|rpg|top-down shooter|first-person-puzzler|art game
 platformer|immersive sim|survival horror adventure|point-and-click adventure
 
+[environment:adj]
+haunted|dark|deep|weird|deadly|dangerous|entrancing|wonderful
+
+[environment]
+cavern|dungeon|forest|palace|castle|office building|tower|battlefield
