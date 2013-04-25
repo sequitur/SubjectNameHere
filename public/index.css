@@ -12,17 +12,17 @@ h1 {
 	color: #ffffff;
 }
 
-div.title {
+div#title {
 }
 
-div.title em {
+div#title em {
 	font-style: normal;
 	color: #f0f0b0;
 }
 
 
 
-div.buzzwords {
+div#buzzwords {
 	background-color: #f0f0f0;
 
 	padding:	20px;
@@ -32,7 +32,7 @@ div.buzzwords {
 	font-weight: 300;
 }
 
-div.footer {
+div#footer {
 	position: absolute
 	bottom: 0;
 	height: 2em;
