@@ -10,7 +10,8 @@ get '/' => sub {
 } => 'index';
 
 helper buzzwords => sub {
-    return markdown( generate_content());
+    my $content = Buzzwords::Indie->new();
+    return markdown( $content->generate_content());
 };
 
 app->start;

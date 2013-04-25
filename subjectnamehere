@@ -5,4 +5,6 @@ use strict;
 
 use Buzzwords::Indie;
 
-print generate_content();
+my $buzzer = Buzzwords::Indie->new();
+
+print $buzzer->generate_content();
