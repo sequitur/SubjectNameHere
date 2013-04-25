@@ -1,10 +1,42 @@
 body {
-	background-color: #40d020;
+	background-color: #20b010;
 }
 
-div.buzzwords {
-	width: 800px;
-	background-color: #f0f0f0;
-	padding:	10px;
-	margin-left: 20%;
+div {
+	max-width: 700px;
+	font-family: 'Roboto Condensed', sans-serif;
+	margin: 0 auto;
 }
+
+h1 {
+	color: #ffffff;
+}
+
+div.title {
+}
+
+div.title em {
+	font-style: normal;
+	color: #f0f0b0;
+}
+
+
+
+div.buzzwords {
+	background-color: #f0f0f0;
+
+	padding:	20px;
+	border-radius: 10px;
+
+	box-shadow: 1px 1px 3px 3px #404040;
+	font-weight: 300;
+}
+
+div.footer {
+	position: absolute
+	bottom: 0;
+	height: 2em;
+
+	color: #202020
+}
+

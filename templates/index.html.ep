@@ -3,12 +3,18 @@
   <meta charset="utf-8" \>
   <title>Subject Name Here</title>
   %= stylesheet 'index.css'
+  <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+
+
 </head>
 <body>
-  <div class="title">
-    <h1>Subject Name Here</h1>
-  </div>
-  <div class="buzzwords">
-    <%== buzzwords %>
-  </div>
+    <div class="title">
+      <h1>Subject Name <em>Here</em></h1>
+    </div>
+      <%== buzzwords %>
+    </div>
+    <div class="footer">
+      <p>Subject Name Here was created using Perl and Mojolicious.</p>
+    </div>
+    <a href="https://github.com/sequitur/SubjectNameHere"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 </body>
