@@ -89,6 +89,11 @@ sub gen_with {
         },
 
         sub {
+            return ' inspired by ' . $self->gen_adj_national
+                . ' ' . $self->gen_category . 's.';
+            },
+
+        sub {
             return ' that is more ' . A($self->gen_adj)
             . ' experiment than a \'game.\'';
         }
@@ -112,7 +117,19 @@ sub gen_gimmick {
             return 'The game explores issues of '
             . ' ' . $self->gen_issues . ', ' . $self->gen_issues . ', and ' . $self->gen_issues
             . ' in the context of ' . $self->gen_adj . ' gameplay.'
-        }
+        },
+        sub {
+            return $self->game_name . ' features stunning '
+                . $self->gen_adj_graphics . ' graphics.';
+        },
+        sub {
+            return $self->game_name . ' challenges conventional notions about '
+                . $self->gen_category . ' design.';
+        },
+        sub {
+            return 'The game was built by ' . $self->gen_team . ' using only '
+                . $self->gen_engine . '.';
+        },
 
     );
 
@@ -147,10 +164,20 @@ sub gen_task {
         },
 
         sub {
+            return ' who falls in love with ' . A($self->gen_character_archetype())
+                . '.';
+        },
+
+        sub {
             return ', and use only  your ' . $self->gen_tool
                 . ' to navigate the maze-like environment of '
                 . A($self->gen_environment_adj) . ' ' . $self->gen_environment . '.';
-        }
+        },
+
+        sub {
+            return ' who embarks on a quest to find ' 
+                . $self->gen_macguffin . '.';
+        },
     );
 
     return $task_subs[rand @task_subs]->();
@@ -202,13 +229,18 @@ sub gen_features {
         },
 
         sub {
-            return '- More than ' . int( rand 256 ) . 'multiplayer modes!';
+            return '- More than ' . int( rand 256 ) . ' multiplayer modes!';
         },
 
         sub {
             return '- Track your achievements and challenge your friends via '
                 . $self->gen_social_media . '!';
             },
+
+        sub {
+            return '- Use your ' . $self->gen_tool . ' to defeat over '
+                . int( rand 256 ) . ' unique enemies!';
+        },
 
 
         undef # We use the null value as a delimiter...
