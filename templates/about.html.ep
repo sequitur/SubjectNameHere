@@ -21,6 +21,9 @@ help us format and generate our ‘content.’</p>
 
 <p>Our source code is hosted on <a href="http://github.com/sequitur/SubjectNameHere" title="GitHub">GitHub</a>, where you can go laugh at it.
 Currently, the app itself is deployed on <a href="http://heroku.com/">Heroku</a>.</p>
+<p>
+%= link_to 'Whatever, just take me back.' => 'index'
+</p>
     </div>
     <a href="https://github.com/sequitur/SubjectNameHere"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 </body>
