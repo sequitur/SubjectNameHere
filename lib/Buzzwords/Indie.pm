@@ -148,7 +148,7 @@ sub gen_gimmick {
         sub {
             return 'Interaction with the game happens entirely through '
                 . A($self->gen_input) . q( that is mapped to the player character's )
-                . $self->gen_character_part;
+                . $self->gen_character_parts;
         }
 
     );
