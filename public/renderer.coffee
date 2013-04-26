@@ -1,19 +1,13 @@
-
 render_buzzwords = (buzzwords) ->
-  console.log buzzwords
-  buzzwordContainer = document.getElementById 'buzzword_content'
-  buzzwordContainer.innerHTML  = buzzwords
+  $('div#buzzword_content').empty()
+  $('div#buzzword_content').append buzzwords
+  $('div#buzzword_content').fadeIn 600
 
-get_content = () ->
-  buzzSocket.send 'content request'
+$( document ).ready () ->
+  $.getJSON '/get_content', (response) ->
+    render_buzzwords response.html
+  $('a#refresh').click () ->
+    $('div#buzzword_content').fadeOut 200 
+    $.getJSON '/get_content', (response) ->
+      render_buzzwords response.html
 
-window.onload = () ->
-  refresher = document.getElementById 'refresh'
-  refresher.addEventListener 'click', () ->
-    get_content()
-
-buzzSocket.onmessage = (event) ->
-  render_buzzwords event.data
-
-buzzSocket.onopen = (event) ->
-  buzzSocket.send 'content request'
