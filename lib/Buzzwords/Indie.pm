@@ -41,6 +41,10 @@ sub gen_game_name {
 
         sub {
             return $self->gen_name_pretentious . int( rand 256 );
+        },
+
+        sub {
+            return $self->gen_name_pretentious . ': ' . $self->gen_name_nouns_plural;
         }
     );
 
@@ -96,6 +100,17 @@ sub gen_with {
         sub {
             return ' that is more ' . A($self->gen_adj)
             . ' experiment than a \'game.\'';
+        },
+
+        sub {
+            return ' created to explore the intersection of '
+                . $self->gen_category . ' games  and '
+                . $self->gen_issues;
+        },
+
+        sub {
+            return ' which uses ' . $self->gen_gameplay_experience
+                . ' as a metaphor for ' . $self->gen_issues;
         }
 
     );
@@ -130,6 +145,11 @@ sub gen_gimmick {
             return 'The game was built by ' . $self->gen_team . ' using only '
                 . $self->gen_engine . '.';
         },
+        sub {
+            return 'Interaction with the game happens entirely through '
+                . A($self->gen_input) . q( that is mapped to the player character's )
+                . $self->gen_character_part;
+        }
 
     );
 

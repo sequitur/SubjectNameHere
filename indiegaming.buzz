@@ -15,6 +15,7 @@ motion control|the Xbox Kinect|a wiimote|social media
 [issues]
 depression|loss|loneliness|gender|storytelling|family|relationships
 love|bigotry|racism|homophobia|art|romance|oppression|sexuality
+international relations|colonialism
 
 [goals]
 solve puzzles|defeat enemies|accumulate points|climb up the leaderboards
@@ -22,7 +23,7 @@ unlock achievements|unlock content|explore the narrative
 learn the game's secrets
 
 [macguffin]
-true love|a nuclear bomb|the secret to eternal life
+true love|nuclear launch codes|the secret to eternal life
 
 [character:type]
 boy|octopus|artist|film-maker|zombie|werewolf|mote of dust
@@ -41,7 +42,7 @@ Mystery|Experience
 Serendipity|Anathema|Analogue|Incipience|Religion|Beauty
 
 [character:adj]
-shy|young|adventurous|colourful|funny|evil|curious|disturbed
+shy|young|adventurous|colourful|evil|curious|disturbed
 sickly|stealthy|adorable
 
 [name:openers]
@@ -69,7 +70,8 @@ in-app|Xbox Live
 physics|time|paint|gravity|colors|emotions|zombies
 
 [character:names]
-Alain|Lucien|Jonah|Ellie|Rev0|Shinzen|Yagami
+Alain|Lucien|Jonah|Ellie|Rev0|Shinzen|Yagami|Herbert|Jason
+Smidgen|Jimbob
 
 [tool]
 magical sword|laser gun|paintbrush|biting wit|time-bending superpowers
@@ -78,6 +80,7 @@ enchanted lyre|mismatched pack of pet penguins
 [category]
 puzzle-platformer|rpg|top-down shooter|first-person-puzzler|art game
 platformer|immersive sim|survival horror adventure|point-and-click adventure
+dating sim|visual novel
 
 [environment:adj]
 haunted|dark|deep|weird|deadly|dangerous|entrancing|wonderful
@@ -97,7 +100,16 @@ a team of Digipen students|a team of professional game designers
 a group of dedicated hobbyists
 the participants of a special-purpose Game Jam
 a single programmer over the course of one afternoon
+an experimental game-making neural network
+a crowdsourced game-spec writing app
 
 [engine]
 the Unreal engine|the Unity3d engine|the Source engine|Java
-Atari 1600 machine language
+Atari 1600 machine language|Inform 7|JQuery
+
+[character:parts]
+legs|arms|eyes|soul|limbs
+
+[gameplay:experience]
+skydiving|snowboarding|film-making|game design|kart racing|kung-fu fighting
+bungee jumping|rollerskating|skating|parasailing|stock car racing
