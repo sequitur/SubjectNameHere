@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use lib 'lib/';
+use lib 'lib';
 use Mojolicious::Lite;
 use Buzzwords::Indie;
 use Text::Markdown 'markdown';

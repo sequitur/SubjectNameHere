@@ -11,7 +11,8 @@ WriteMakefile(
         'Mojolicious'           => '3.96',
         'Text::Markdown'        => '1.000031',
         'Lingua::EN::Inflect'   => '1.895',
-        'Mouse'                 => '1.06' },
+        'Mouse'                 => '1.06',
+        'namespace::autoclean'  => '0.13' },
     AUTHOR          => 'Bruno Dias <email@ommited.net>'
 )
     
