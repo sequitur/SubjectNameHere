@@ -6,17 +6,16 @@
     var buzzwordContainer;
     console.log(buzzwords);
     buzzwordContainer = document.getElementById('buzzword_content');
-    buzzwordContainer.innerHTML = buzzwords;
-    return buzzSocket.close;
+    return buzzwordContainer.innerHTML = buzzwords;
   };
 
   get_content = function() {
-    buzzSocket.open;
     return buzzSocket.send('content request');
   };
 
   window.onload = function() {
     var refresher;
+    buzzSocket.open;
     get_content();
     refresher = document.getElementById('refresh');
     return refresher.addEventListener('click', function() {

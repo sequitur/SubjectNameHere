@@ -3,13 +3,12 @@ render_buzzwords = (buzzwords) ->
   console.log buzzwords
   buzzwordContainer = document.getElementById 'buzzword_content'
   buzzwordContainer.innerHTML  = buzzwords
-  buzzSocket.close
 
 get_content = () ->
-  buzzSocket.open
   buzzSocket.send 'content request'
 
 window.onload = () ->
+  buzzSocket.open
   get_content()
 
   refresher = document.getElementById 'refresh'
