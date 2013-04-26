@@ -14,7 +14,18 @@ get '/about' => sub {
     $self->render;
 } => 'about';
 
-helper buzzwords => sub {
+websocket '/get_content' => sub {
+    my $self = shift;
+    $self->on(
+        message => sub {
+            my $self = shift;
+            $self->send( buzzwords() );
+        }
+    );
+};
+            
+
+sub buzzwords {
     my $content = Buzzwords::Indie->new();
     return markdown( $content->generate_content());
 };
