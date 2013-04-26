@@ -15,8 +15,6 @@
 
   window.onload = function() {
     var refresher;
-    buzzSocket.open;
-    get_content();
     refresher = document.getElementById('refresh');
     return refresher.addEventListener('click', function() {
       return get_content();
@@ -25,6 +23,10 @@
 
   buzzSocket.onmessage = function(event) {
     return render_buzzwords(event.data);
+  };
+
+  buzzSocket.onopen = function(event) {
+    return buzzSocket.send('content request');
   };
 
 }).call(this);

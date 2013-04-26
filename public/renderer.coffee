@@ -8,9 +8,6 @@ get_content = () ->
   buzzSocket.send 'content request'
 
 window.onload = () ->
-  buzzSocket.open
-  get_content()
-
   refresher = document.getElementById 'refresh'
   refresher.addEventListener 'click', () ->
     get_content()
@@ -18,3 +15,5 @@ window.onload = () ->
 buzzSocket.onmessage = (event) ->
   render_buzzwords event.data
 
+buzzSocket.onopen = (event) ->
+  buzzSocket.send 'content request'
