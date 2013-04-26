@@ -105,12 +105,12 @@ sub gen_with {
         sub {
             return ' created to explore the intersection of '
                 . $self->gen_category . ' games  and '
-                . $self->gen_issues;
+                . $self->gen_issues . '.';
         },
 
         sub {
             return ' which uses ' . $self->gen_gameplay_experience
-                . ' as a metaphor for ' . $self->gen_issues;
+                . ' as a metaphor for ' . $self->gen_issues . '.' ;
         }
 
     );
@@ -147,8 +147,8 @@ sub gen_gimmick {
         },
         sub {
             return 'Interaction with the game happens entirely through '
-                . A($self->gen_input) . q( that is mapped to the player character's )
-                . $self->gen_character_parts;
+                . $self->gen_input . q( mapped to the player character's )
+                . $self->gen_character_parts . '.';
         }
 
     );
