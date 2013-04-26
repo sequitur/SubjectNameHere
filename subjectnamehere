@@ -3,6 +3,8 @@
 use warnings;
 use strict;
 
+use lib 'lib/';
+
 use Buzzwords::Indie;
 use Buzzwords::Reader;
 
