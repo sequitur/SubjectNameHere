@@ -1,0 +1,16 @@
+MANIFEST
+Makefile.PL
+LICENSE.md
+README.md
+subjectnamehere
+mojosjn
+Perloku
+indiegaming.buzz
+templates/about.html.ep
+templates/index.html.ep
+public/index.css
+public/renderer.coffee
+public/renderer.js
+lib/Buzzwords/Indie.pm
+lib/Buzzwords/Reader.pm
+lib/Buzzwords/Shuffler.pm
