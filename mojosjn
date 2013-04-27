@@ -1,5 +1,7 @@
 #!/usr/bin/env perl
 
+# See README for information about this application.
+
 use lib 'lib';
 use Mojolicious::Lite;
 use Buzzwords::Indie;
