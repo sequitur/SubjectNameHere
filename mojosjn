@@ -8,6 +8,8 @@ use Buzzwords::Reader;
 use Buzzwords::Shuffler;
 use Text::Markdown 'markdown';
 
+my %buzzwords = get_buzzwords('indiegaming.buzz');
+
 get '/' => sub {
     my $self = shift;
     $self->render;
@@ -21,7 +23,6 @@ get '/about' => sub {
 get '/get_content' => sub {
     my $self = shift;
 
-    my %buzzwords = get_buzzwords('indiegaming.buzz');
     my $buzzer = Buzzwords::Shuffler->new( buzzwords => \%buzzwords );
     my $content =  markdown( $buzzer->content() );
     $self->render_json(
@@ -30,15 +31,6 @@ get '/get_content' => sub {
         }
     );
 } => 'get_content';
-            
-
-helper buzzwords => sub {
-
-    my %buzzwords = get_buzzwords('indiegaming.buzz');
-    my $buzzer = Buzzwords::Shuffler->new( buzzwords => \%buzzwords );
-    return markdown( $buzzer->content() );
-
-};
 
 app->start;
 
