@@ -1,0 +1,18 @@
+[main]
+<phrase:main>
+[phrase:main]
+This is a multi-line
+block
+of
+text, with a random color: <color>
+%
+This is another multi-line block of
+text, with a random noise: <noise>
+%
+This is a multi-line block of text,
+
+with an empty line in it.
+[color]
+red|green|blue|white|black|pink
+[noise]
+Phoomp!|Blorft!|Zarf!|Blarf!|Narf!|Sproing!

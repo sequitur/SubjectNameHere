@@ -1,0 +1,16 @@
+#!/usr/bin/env perl
+
+use warnings;
+use strict;
+use v5.16;
+
+use lib 'lib/';
+
+use Buzzwords::Shuffler;
+use Buzzwords::Reader;
+
+my %buzzwords = get_buzzwords('backend-test.buzz');
+
+my $buzzer = Buzzwords::Shuffler->new( buzzwords => \%buzzwords );
+
+say $buzzer->content();
