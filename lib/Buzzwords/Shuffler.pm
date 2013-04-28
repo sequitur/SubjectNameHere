@@ -17,19 +17,19 @@ sub BUILD {
 
     my $self = shift;
 
+    my %shuffled_buzzwords;
+
     foreach my $category (keys %{$self->buzzwords}) {
-        my $func_name = $category;
-        $func_name =~ s/:/_/g;
-
-        __PACKAGE__->meta->add_method(
-            "gen_$func_name" => $self->make_iterator(${$self->buzzwords}{$category})
-        );
-
+        my @shuffled = shuffle( @{${$self->buzzwords}{$category}} );
+        $shuffled_buzzwords{$category} = \@shuffled;
     }
+
+    $self->buzzwords( \%shuffled_buzzwords );
+
 }
 
 has buzzwords => (
-    is => 'ro',
+    is => 'rw',
     isa => 'HashRef',
     default => sub {
         use Buzzwords::Reader;
@@ -38,15 +38,25 @@ has buzzwords => (
     },
 );
 
-sub make_iterator {
+sub _generator {
+    my ($self, $arg) = @_;
+
+    my $category = ${$self->buzzwords}{$arg};
+    my $phrase = pop @$category;
+
+    while ($phrase =~ /\<([a-z:]+)\>/) {
+        my $local1 = $1; # Global variables are the devil.
+        my $replacement = $self->_generator($local1);
+        $phrase =~ s/<$local1>/$replacement/;
+    }
+
+    return $phrase;
+}
+
+
+sub content {
     my $self = shift;
-
-    my $i = 0;
-    my @buzzwords = shuffle(@{$_[0]});
-
-    return sub {
-        return $buzzwords[$i++];
-    };
+    return $self->_generator('main');
 }
 
 __PACKAGE__->meta->make_immutable();

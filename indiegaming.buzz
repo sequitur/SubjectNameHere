@@ -8,6 +8,18 @@
 # Currently, data placed outside the first section is placed in the
 # 'default' list and is unused, as are some of the lists here.
 
+[main]
+<phrase:context>
+
+<phrase:intro>
+
+<phrase:protagonist>
+
+<phrase:features>
+[phrase:context]
+Your next <project:type>:
+[phrase:intro]
+
 [input]
 a guitar controller|analog sticks|voice activation|eye-tracking
 motion control|the Xbox Kinect|a wiimote|social media

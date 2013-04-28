@@ -17,12 +17,24 @@ sub get_buzzwords {
     my @current_block_content;
 
     my %buzzwords;
+    my $phrasal = 0;
 
     while (<BUZZWORDS>) {
 
-        chomp;
+        chomp unless $phrasal;
         s/^\s*(\S*)#.*/$1\n/; # Strip out comments and leading whitespace.
-        next if /^$/; # Empty line; do nothing.
+        next if /^$/ and !$phrasal; # Empty line; do nothing.
+
+        if ( /^\[(phrase:.+)\]/ ) { # Start of a phrasal bloc
+            %buzzwords = ( %buzzwords,
+                $current_block_name => [ @current_block_content ] );
+
+            $current_block_name = $1;
+            @current_block_content = ();
+
+            $phrasal = 1;
+            next;
+        }
 
         if ( /^\[(.+)\]/ ) { # Start of a new block
 
@@ -31,13 +43,26 @@ sub get_buzzwords {
 
             $current_block_name = $1;
             @current_block_content = ();
-            next
+            $phrasal = 0;
+            next;
+        }
+
+        if ( /^%$/ ) { # Phrasal block delimiter
+            push @current_block_content, "";
+            next;
         }
 
         # If this is neither an empty line nor a block header, assume it's
         # a line containing block content.
 
-        push( @current_block_content, split( qr/\|/, $_ ) );
+        if ($phrasal) {
+            my $section = pop @current_block_content;
+            $section = '' unless $section;
+            push( @current_block_content, ($section . $_) );
+            next;
+        }
+
+            push( @current_block_content, split( qr/\|/, $_ ) );
     }
 
     %buzzwords = ( %buzzwords,
