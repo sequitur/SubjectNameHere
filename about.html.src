@@ -1,9 +1,0 @@
-<p><strong>Subject Name Here</strong> was created using <a href="http://www.perl.org/" title="Perl">Perl</a>, the <a href="http://mojolici.us/" title="Mojolicious">Mojolicious</a>
-web famework, and the <a href="http://jquery.com/" title="JQuery">JQeury</a> JavaScript library.</p>
-
-<p>We've also used the CPAN modules <a href="http://search.cpan.org/~dconway/Lingua-EN-Inflect-1.895/" title="Lingua">Lingua::EN::Inflect</a>,
-<a href="http://search.cpan.org/~bobtfish/Text-Markdown-1.000031/" title="Markdown">Text::Markdown</a>, and the <a href="http://search.cpan.org/~gfuji/Mouse-1.10/" title="Mouse">Mouse</a> lightweight object framework to
-help us format and generate our ‘content.’</p>
-
-<p>Our source code is hosted on <a href="http://github.com/sequitur/SubjectNameHere" title="GitHub">GitHub</a>, where you can go laugh at it.
-Currently, the app itself is deployed on <a href="http://heroku.com/">Heroku</a>.</p>
