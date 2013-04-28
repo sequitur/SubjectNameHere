@@ -1,12 +1,6 @@
 // Subject Name Here buzzwords file.
 //
-// This file is made up of sections headed up like INI file sections,
-// containing pipe-separated/newline-separated values. There's 
-// no escape character, but everything after a // and empty lines
-// are ignored.
-//
-// Currently, data placed outside the first section is placed in the
-// 'default' list and is unused, as are some of the lists here.
+// See the README for the format of this file.
 
 [main]
 <phrase_main>
