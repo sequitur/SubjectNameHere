@@ -21,11 +21,11 @@ sub get_buzzwords {
 
     while (<BUZZWORDS>) {
 
+        s|//.*$||; # Strip out comments
         chomp unless $phrasal;
-        s/^\s*(\S*)#.*/$1\n/; # Strip out comments and leading whitespace.
-        next if /^$/ and !$phrasal; # Empty line; do nothing.
+        next if /^\s*$/ and !$phrasal; # Empty line; do nothing.
 
-        if ( /^\[(phrase:.+)\]/ ) { # Start of a phrasal bloc
+        if ( /^\[(phrase_.+)\]/ ) { # Start of a phrasal bloc
             %buzzwords = ( %buzzwords,
                 $current_block_name => [ @current_block_content ] );
 

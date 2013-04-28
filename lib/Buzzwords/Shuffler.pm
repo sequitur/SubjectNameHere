@@ -5,6 +5,7 @@ use namespace::autoclean;
 
 use v5.16;
 use List::Util 'shuffle';
+use Lingua::EN::Inflect 'A';
 
 # Takes a reference to a hash such as the ones created by Buzzwords::Reader,
 # and creates an object that has gen_$foo methods to randomly access them.
@@ -20,11 +21,14 @@ sub BUILD {
     my %shuffled_buzzwords;
 
     foreach my $category (keys %{$self->buzzwords}) {
-        my @shuffled = shuffle( @{${$self->buzzwords}{$category}} );
-        $shuffled_buzzwords{$category} = \@shuffled;
-    }
+        my $func_name = $category;
 
-    $self->buzzwords( \%shuffled_buzzwords );
+        __PACKAGE__->meta->add_method(
+            "_shuffle_$func_name" => 
+            $self->_make_iterator(${$self->buzzwords}{$category})
+        );
+
+    }
 
 }
 
@@ -38,18 +42,66 @@ has buzzwords => (
     },
 );
 
-sub _generator {
+sub _make_iterator {
     my ($self, $arg) = @_;
+    my @shuffled = shuffle @$arg;
+    
+    return sub {
+        my ($self, %opts) = @_;
+        state $static;
 
-    my $category = ${$self->buzzwords}{$arg};
-    my $phrase = pop @$category;
+        if ($opts{static}) {
+            return $static if $static;
 
-    while ($phrase =~ /\<([a-z:]+)\>/) {
+            $static = pop @shuffled;
+            return $static;
+        }
+
+        my $phrase = pop @shuffled;
+
+        return $phrase;
+    };
+};
+
+
+sub _generator {
+    my $self = shift;
+    my @args = split(' ', shift);
+    my $inflect = 0;
+
+    if ($args[0] =~ /^(a|an)$/) {
+        shift @args;
+        $inflect = 1;
+    }
+
+    my ($category, $option) = @args;
+
+    my $func_name = "_shuffle_$category";
+
+    my $phrase = '';
+
+    if ($option) {
+        if ($option eq 'static') {
+            $phrase = $self->$func_name( static => 'yes' ) }
+        if ($option =~ /\d+:\d+/ ) {
+            my ($lower, $upper) = split(':', $option);
+            my $range = $upper - $lower;
+            my $number = ( int( rand( $range ) ) )+ $lower;
+
+            foreach (0..$number) {
+                $phrase .= $self->$func_name();
+            }
+        }
+    }
+    else { $phrase = $self->$func_name() }
+
+    while ($phrase =~ /\<([a-z0-9_: ]+)\>/) {
         my $local1 = $1; # Global variables are the devil.
         my $replacement = $self->_generator($local1);
         $phrase =~ s/<$local1>/$replacement/;
     }
 
+    return A($phrase) if $inflect;
     return $phrase;
 }
 

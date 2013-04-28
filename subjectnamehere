@@ -2,14 +2,15 @@
 
 use warnings;
 use strict;
+use v5.16;
 
 use lib 'lib/';
 
-use Buzzwords::Indie;
+use Buzzwords::Shuffler;
 use Buzzwords::Reader;
 
 my %buzzwords = get_buzzwords('indiegaming.buzz');
 
-my $buzzer = Buzzwords::Indie->new( buzzwords => \%buzzwords );
+my $buzzer = Buzzwords::Shuffler->new( buzzwords => \%buzzwords );
 
-print $buzzer->generate_content();
+say $buzzer->content();

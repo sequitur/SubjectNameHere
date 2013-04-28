@@ -1,25 +1,96 @@
-# Subject Name Here buzzwords file.
-#
-# This file is made up of sections headed up like INI file sections,
-# containing pipe-separated/newline-separated values. There's 
-# no escape character, but everything after a # and empty lines
-# are ignored.
-#
-# Currently, data placed outside the first section is placed in the
-# 'default' list and is unused, as are some of the lists here.
+// Subject Name Here buzzwords file.
+//
+// This file is made up of sections headed up like INI file sections,
+// containing pipe-separated/newline-separated values. There's 
+// no escape character, but everything after a // and empty lines
+// are ignored.
+//
+// Currently, data placed outside the first section is placed in the
+// 'default' list and is unused, as are some of the lists here.
 
 [main]
-<phrase:context>
+<phrase_main>
+[phrase_main]
+<phrase_context>
+<phrase_intro>
+<phrase_protagonist>
+<phrase_features 2:5>
+[phrase_context]
+Your next <project_type>:
+[phrase_intro]
+# <game_name static>
 
-<phrase:intro>
+*<game_name static>* is <a game_genre> <phrase_game_with>
+<phrase_game_gimmick>
+[game_name]
+<name_openers static> <name_nouns_plural static>
+[game_genre]
+<adj> <category>|<adj>, <adj> <category>
+[phrase_game_with]
+with <adj> <category> elements.
+%
+that pays homage to classic <adj> <category> games.
+%
+based around manipulating <gameplay> to solve puzzles.
+%
+inspired by <adj_national> <category>s.
+%
+that is more <a adj> experiment than a ‘game’
+%
+created to explore the intersection of <category> games and <issues>.
+%
+which uses <gameplay_experience> as a metaphor for <issues>.
+[phrase_game_gimmick]
+The <adj> gameplay consists of using <input> to control <gameplay> in order
+to <goals>.
+%
+The game explores issues of <issues>, <issues> and <issues> in the context
+of <adj> gameplay.
+%
+<game_name static> features stunning <adj_graphics> graphics.
+%
+<game_name static> challenges conventional notions about <category> design.
+%
+The game was built by <team> using only <engine>.
+%
+Interaction with the game happens entirely through <input> mapped to the
+player character's <character_parts>.
+[phrase_protagonist]
+You play as <character> <phrase_task>
+[character]
+<character_names>, <a character_archetype static>
 
-<phrase:protagonist>
+[character_archetype]
+<character_adj> <character_type>
 
-<phrase:features>
-[phrase:context]
-Your next <project:type>:
-[phrase:intro]
-
+[phrase_task]
+tasked with defeating  <a character_archetype static>.
+%
+who must rescue <a character_archetype static> from certain death.
+%
+who falls in love with <a character_archetype static>.
+%
+who uses only <a tool> to navigate the maze-like environment of
+<an environment_adj> <environment>.
+%
+who embarks on a quest to find <macguffin>.
+[phrase_features]
+- Over <number> levels!
+%
+- Play as a <a character_type>, <a character_type>
+  or <a character_type>!
+%
+- Free to play with <microtransaction_adj> microtransactions!
+%
+- <number> achievements to unlock!
+%
+- More than <number> multiplayer modes!
+%
+- Track your achievements and challenge your friends via <social_media>!
+%
+- Use your <tool> to defeat over <number> unique enemies!
+[number]
+5|7|15|23|32|42|157|256
 [input]
 a guitar controller|analog sticks|voice activation|eye-tracking
 motion control|the Xbox Kinect|a wiimote|social media
@@ -37,27 +108,27 @@ learn the game's secrets
 [macguffin]
 true love|nuclear launch codes|the secret to eternal life
 
-[character:type]
+[character_type]
 boy|octopus|artist|film-maker|zombie|werewolf|mote of dust
 girl|assassin|ninja|vampire|princess|dominatrix|alien|mutant
 sentient blob of flesh
 
-[name:nouns:plural]
+[name_nouns_plural]
 Warriors|Tales|Legends|Depths|Friends|Loves|Chosen|Barbarians
 Ruins|Scrolls|Hearts
 
-[name:nouns]
+[name_nouns]
 Tale|Story|Quest|Stone|Cavern|Dungeon|Romance|Love|War|Never|Braid
 Mystery|Experience
 
-[name:pretentious]
+[name_pretentious]
 Serendipity|Anathema|Analogue|Incipience|Religion|Beauty
 
-[character:adj]
+[character_adj]
 shy|young|adventurous|colourful|evil|curious|disturbed
 sickly|stealthy|adorable
 
-[name:openers]
+[name_openers]
 Among the|War of the|Legend of the|Ruins of the|Tales of the|Secret of the
 The Heritage
 
@@ -68,25 +139,25 @@ physics-based|skill-adaptive|touchscreen-ready|mind-bending|open-ended
 co-op|twitchy|fast-paced|post-apocalyptic|open-world|award-winning
 IGF-nominated
 
-[adj:graphics]
+[adj_graphics]
 black-and-white|2.5d|pixel art|retrogaming|hand-drawn|painterly|vector
 
-[adj:national]
+[adj_national]
 Japanese|Hungarian|French|German|Korean|Chinese
 
-[microtransaction:adj]
+[microtransaction_adj]
 hat-based|bitcoin-denominated|affordable|premium|real money
 in-app|Xbox Live
 
 [gameplay]
 physics|time|paint|gravity|colors|emotions|zombies
 
-[character:names]
+[character_names]
 Alain|Lucien|Jonah|Ellie|Rev0|Shinzen|Yagami|Herbert|Jason
 Smidgen|Jimbob
 
 [tool]
-magical sword|laser gun|paintbrush|biting wit|time-bending superpowers
+magical sword|laser gun|paintbrush|biting wit|time-bending superpower
 enchanted lyre|mismatched pack of pet penguins
 
 [category]
@@ -94,17 +165,17 @@ puzzle-platformer|rpg|top-down shooter|first-person-puzzler|art game
 platformer|immersive sim|survival horror adventure|point-and-click adventure
 dating sim|visual novel
 
-[environment:adj]
+[environment_adj]
 haunted|dark|deep|weird|deadly|dangerous|entrancing|wonderful
 
 [environment]
 cavern|dungeon|forest|palace|castle|office building|tower|battlefield
 
-[project:type]
+[project_type]
 fad Kickstarter|Peter Molyneux game|Jonathan Blow vaporware
 Humble Indie Bundle filler|Steam $5 deal of the day
 
-[social:media]
+[social_media]
 Twitter|Facebook|Google+|Pinterest|Reddit|Instagram
 
 [team]
@@ -119,9 +190,9 @@ a crowdsourced game-spec writing app
 the Unreal engine|the Unity3d engine|the Source engine|Java
 Atari 1600 machine language|Inform 7|JQuery
 
-[character:parts]
+[character_parts]
 legs|arms|eyes|soul|limbs
 
-[gameplay:experience]
+[gameplay_experience]
 skydiving|snowboarding|film-making|game design|kart racing|kung-fu fighting
 bungee jumping|rollerskating|skating|parasailing|stock car racing

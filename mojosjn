@@ -4,7 +4,8 @@
 
 use lib 'lib';
 use Mojolicious::Lite;
-use Buzzwords::Indie;
+use Buzzwords::Reader;
+use Buzzwords::Shuffler;
 use Text::Markdown 'markdown';
 
 get '/' => sub {
@@ -19,19 +20,24 @@ get '/about' => sub {
 
 get '/get_content' => sub {
     my $self = shift;
-    my $content = Buzzwords::Indie->new();
-    my $buzzwords = markdown ( $content->generate_content() );
+
+    my %buzzwords = get_buzzwords('indiegaming.buzz');
+    my $buzzer = Buzzwords::Shuffler->new( buzzwords => \%buzzwords );
+    my $content =  markdown( $buzzer->content() );
     $self->render_json(
         {
-            html => $buzzwords
+            html => $content
         }
     );
 } => 'get_content';
             
 
 helper buzzwords => sub {
-    my $content = Buzzwords::Indie->new();
-    return markdown( $content->generate_content());
+
+    my %buzzwords = get_buzzwords('indiegaming.buzz');
+    my $buzzer = Buzzwords::Shuffler->new( buzzwords => \%buzzwords );
+    return markdown( $buzzer->content() );
+
 };
 
 app->start;
