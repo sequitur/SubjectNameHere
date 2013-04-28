@@ -24,6 +24,8 @@ Your next <project_type>:
 <phrase_game_gimmick>
 [game_name]
 <name_openers static> <name_nouns_plural static>
+<name_pretentious static><number static>
+<name_pretentious static>: <name_nouns static>
 [game_genre]
 <adj> <category>|<adj>, <adj> <category>
 [phrase_game_with]
