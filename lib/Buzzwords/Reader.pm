@@ -11,7 +11,7 @@ use Exporter 'import';
 sub get_buzzwords {
     my ($bzpath) = @_;
 
-    open(BUZZWORDS, '<', $bzpath) or die "Can't open buzzword file: $!";
+    open(BUZZWORDS, '<:encoding(UTF-8)', $bzpath) or die "Can't open buzzword file: $!";
 
     my $current_block_name = 'default';
     my @current_block_content;

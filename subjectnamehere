@@ -9,8 +9,12 @@ use lib 'lib/';
 use Buzzwords::Shuffler;
 use Buzzwords::Reader;
 
+binmode STDOUT, ':utf8';
+
 my %buzzwords = get_buzzwords('indiegaming.buzz');
 
-my $buzzer = Buzzwords::Shuffler->new( buzzwords => \%buzzwords );
+foreach (0..10) {
+    my $buzzer = Buzzwords::Shuffler->new( buzzwords => \%buzzwords );
 
-say $buzzer->content();
+    say $buzzer->content();
+}

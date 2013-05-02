@@ -33,5 +33,3 @@ get '/get_content' => sub {
 } => 'get_content';
 
 app->start;
-
-__DATA__
