@@ -32,6 +32,6 @@ The format for buzzword files is:
         * `x:y`, where x and y are numbers, will call the block repeatedly at least 
         x times and at most y times.
 
-Reading the actual file will probably make this clearer. The `[main]` block is 
+Reading the actual file will probably make this much more clearer. The `[main]` block is 
 the only one explicitly called by the Shuffler module; `[main]` in turn calls 
 other blocks.
