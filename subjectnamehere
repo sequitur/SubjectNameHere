@@ -17,4 +17,4 @@ foreach (0..10) {
     my $buzzer = Buzzwords::Shuffler->new( buzzwords => \%buzzwords );
 
     say $buzzer->content();
-}
+}hello world
